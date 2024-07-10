@@ -1,0 +1,89 @@
+.drag-and-drop-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 250px; /* Ajusta la altura mínima según tus necesidades */
+  min-width: 250px;
+
+  padding: 10px;
+  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en las dimensiones totales */
+}
+
+.separator {
+  width: 1px;
+  background-color: black;
+  height: 100%;
+  margin: 0 10px;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 16px; /* Cambia este valor para ajustar el tamaño del texto */
+}
+
+.drop-zone, .image-preview, .image-response {
+  width: 200px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+input[type="file"] {
+  border: none;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px; /* Cambia estos valores para ajustar el tamaño del botón */
+  font-size: 12px; /* Cambia este valor para ajustar el tamaño del texto del botón */
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px; /* Opcional: Cambia el valor para ajustar el radio de las esquinas del botón */
+}
+
+.fas.fa-spinner {
+  font-size: 24px; /* Tamaño del icono de carga */
+  color: #007bff;
+}
+
+.info-text {
+  font-size: 14px; /* Cambia este valor para ajustar el tamaño del texto */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.response-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 12px; /* Cambia este valor para ajustar el tamaño del texto de la tabla */
+}
+
+.response-table th, .response-table td {
+  border: 1px solid #ddd;
+  padding: 4px; /* Reduce el tamaño del padding */
+  text-align: left;
+}
+
+.response-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
