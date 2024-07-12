@@ -97,32 +97,32 @@ def get_anonym_image_old( image_name):
                                                             object_location.object_name))
     #print(str(get_object_response.data.content.decode()))
 
-    # Suponiendo que get_object_response.data es una cadena JSON
+    
     json_data_str = get_object_response.data.content.decode()
 
-    # Convertir la cadena JSON a un diccionario
+    
     json_data = json.loads(json_data_str)
 
     #print(json_data["pages"])
-    # Crear listas para cada columna
+    
     text_list = []
     confidence_list = []
     boundingPolygon_list = []
 
-    # Iterar sobre las palabras en la lista y extraer la información
+    
     for word in json_data["pages"][0]["words"]:
         text_list.append(word["text"])
         confidence_list.append(word["confidence"])
         boundingPolygon_list.append(word["boundingPolygon"]["normalizedVertices"])
 
-    # Crear DataFrame
+    
     df = pd.DataFrame({
         "text": text_list,
         "confidence": confidence_list,
         "boundingPolygon": boundingPolygon_list
     })
 
-    # Mostrar el DataFrame
+    
     #print(df)
 
     text_concatenated = ' '.join(df['text'])
@@ -181,15 +181,15 @@ def get_anonym_image_old( image_name):
 
         #print(df["text"][0])
 
-        # Buscar la fila correspondiente en el DataFrame
+        
         #matching_rows = df[df['text'] == text_to_match].index
         matching_rows = df[df['text'].str.contains(text_to_match)].index
         #print(matching_rows)
 
-        # Asignar el valor de 'type' a la columna 'type' en la fila correspondiente
+        #
         df.loc[matching_rows, 'type'] = type_value
 
-    # Imprimir el DataFrame actualizado
+    
     #print(df)
 
     column_type = []
@@ -215,44 +215,44 @@ def get_anonym_image_old( image_name):
         if text_df in text_to_match:
             print("contains")
         '''
-        # Buscar la fila correspondiente en el DataFrame
+        
         matching_rows = df[df['text'].apply(lambda x: x in text_to_match)].index
         #matching_rows = df[str(df['text']) in text_to_match].index
     
         #matching_rows = df[df['text'] in (text_to_match)].index
         #print(matching_rows)
 
-        # Asignar el valor de 'type' a la columna 'type' en la fila correspondiente
+        
         df.loc[matching_rows, 'type'] = type_value
 
-    # Imprimir el DataFrame actualizado
+    
     #print(df)
 
     df.loc[df['text'] == 'LAG', 'type'] = None
 
-    # Filtra las filas donde 'type' es 'DATETIME'
+    
     selected_types = ['DATETIME', 'PERSON', 'ORGANIZATION', 'QUANTITY']
     selected_rows = df[df['type'].isin(selected_types)]
 
-    # Abre la imagen (reemplaza 'ruta_de_la_imagen' con la ruta de tu imagen)
+    
     image_path = image_name
     image = Image.open(image_path)
 
-    # Crea un objeto para dibujar en la imagen
+    
     draw = ImageDraw.Draw(image)
 
     print(selected_rows)
 
     for index, row in selected_rows.iterrows():
-        # Obtiene las coordenadas del bounding box y convierte a números
+        
         vertices = row['boundingPolygon']
         print(vertices)
         coordinates = [(float(v['x']) * image.width, float(v['y']) * image.height) for v in vertices]
 
-        # Dibuja un rectángulo negro en las coordenadas del bounding box
+        
         draw.polygon(coordinates, fill="black")
 
-    # Guarda la imagen con las cajas negras
+    
     image.save('media/imagen_con_cajas_negras.png')
 
     selected_rows_filtered = selected_rows[['text', 'type']]
@@ -325,7 +325,7 @@ def get_anonym_image(image_name):
     # Suponiendo que get_object_response.data es una cadena JSON
     json_data_str = get_object_response.data.content.decode()
 
-    # Convertir la cadena JSON a un diccionario
+    #
     json_data = json.loads(json_data_str)
     
     #print(json_data["pages"])
@@ -343,25 +343,25 @@ def get_anonym_image(image_name):
        
     
         #print(json_data["pages"])
-        # Crear listas para cada columna
+        
         text_list = []
         confidence_list = []
         boundingPolygon_list = []
 
-        # Iterar sobre las palabras en la lista y extraer la información
+        
         for word in json_data["pages"][0]["words"]:
             text_list.append(word["text"])
             confidence_list.append(word["confidence"])
             boundingPolygon_list.append(word["boundingPolygon"]["normalizedVertices"])
 
-        # Crear DataFrame
+        
         df = pd.DataFrame({
             "text": text_list,
             "confidence": confidence_list,
             "boundingPolygon": boundingPolygon_list
         })
 
-        # Mostrar el DataFrame
+        
         #print(df)
 
         text_concatenated = ' '.join(df['text'])
@@ -420,15 +420,15 @@ def get_anonym_image(image_name):
 
             #print(df["text"][0])
 
-            # Buscar la fila correspondiente en el DataFrame
+            
             #matching_rows = df[df['text'] == text_to_match].index
             matching_rows = df[df['text'].str.contains(text_to_match)].index
             #print(matching_rows)
 
-            # Asignar el valor de 'type' a la columna 'type' en la fila correspondiente
+            
             df.loc[matching_rows, 'type'] = type_value
 
-        # Imprimir el DataFrame actualizado
+        
         #print(df)
 
         column_type = []
@@ -438,46 +438,46 @@ def get_anonym_image(image_name):
             type_value = entity['type']
             #print(type_value)
 
-            # Buscar la fila correspondiente en el DataFrame
+            
             matching_rows = df[df['text'].apply(lambda x: x in text_to_match)].index
             #matching_rows = df[str(df['text']) in text_to_match].index
         
             #matching_rows = df[df['text'] in (text_to_match)].index
             #print(matching_rows)
 
-            # Asignar el valor de 'type' a la columna 'type' en la fila correspondiente
+            
             df.loc[matching_rows, 'type'] = type_value
 
-        # Imprimir el DataFrame actualizado
+        
         #print(df)
 
         df.loc[df['text'] == 'LAG', 'type'] = None
 
-        # Filtra las filas donde 'type' es 'DATETIME'
+        
         selected_types = ['DATETIME', 'PERSON', 'ORGANIZATION', 'QUANTITY']
         selected_rows = df[df['type'].isin(selected_types)]
 
-        # Abre la imagen (reemplaza 'ruta_de_la_imagen' con la ruta de tu imagen)
+        
         image_local_name = image_name.split("/")
         image_path = "uploads/"+str(image_local_name[1])
         #print(image_path)
         image = Image.open(image_path)
 
-        # Crea un objeto para dibujar en la imagen
+        
         draw = ImageDraw.Draw(image)
 
         print(selected_rows)
 
         for index, row in selected_rows.iterrows():
-            # Obtiene las coordenadas del bounding box y convierte a números
+            
             vertices = row['boundingPolygon']
             print(vertices)
             coordinates = [(float(v['x']) * image.width, float(v['y']) * image.height) for v in vertices]
 
-            # Dibuja un rectángulo negro en las coordenadas del bounding box
+            
             draw.polygon(coordinates, fill="black")
 
-        # Guarda la imagen con las cajas negras
+        
         image.save('uploads/anonymized_'+str(image_local_name[1]))
 
         selected_rows_filtered = selected_rows[['text', 'type']]

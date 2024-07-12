@@ -283,15 +283,15 @@ def get_anonym_image(image_name):
 
             #print(df["text"][0])
 
-            # Buscar la fila correspondiente en el DataFrame
+            
             #matching_rows = df[df['text'] == text_to_match].index
             matching_rows = df[df['text'].str.contains(text_to_match)].index
             #print(matching_rows)
 
-            # Asignar el valor de 'type' a la columna 'type' en la fila correspondiente
+            
             df.loc[matching_rows, 'type'] = type_value
 
-        # Imprimir el DataFrame actualizado
+        
         #print(df)
 
         column_type = []
@@ -301,14 +301,14 @@ def get_anonym_image(image_name):
             type_value = entity['type']
             #print(type_value)
 
-            # Buscar la fila correspondiente en el DataFrame
+            
             matching_rows = df[df['text'].apply(lambda x: x in text_to_match)].index
             #matching_rows = df[str(df['text']) in text_to_match].index
         
             #matching_rows = df[df['text'] in (text_to_match)].index
             #print(matching_rows)
 
-            # Asignar el valor de 'type' a la columna 'type' en la fila correspondiente
+            
             df.loc[matching_rows, 'type'] = type_value
 
         # Imprimir el DataFrame actualizado
@@ -316,31 +316,31 @@ def get_anonym_image(image_name):
 
         df.loc[df['text'] == 'LAG', 'type'] = None
 
-        # Filtra las filas donde 'type' es 'DATETIME'
+        
         selected_types = ['DATETIME', 'PERSON', 'ORGANIZATION', 'QUANTITY']
         selected_rows = df[df['type'].isin(selected_types)]
 
-        # Abre la imagen (reemplaza 'ruta_de_la_imagen' con la ruta de tu imagen)
+        
         image_local_name = image_name.split("/")
         image_path = "dicom_processed/"+str(image_local_name[1])
         #print(image_path)
         image = Image.open(image_path)
 
-        # Crea un objeto para dibujar en la imagen
+        
         draw = ImageDraw.Draw(image)
 
         print(selected_rows)
 
         for index, row in selected_rows.iterrows():
-            # Obtiene las coordenadas del bounding box y convierte a números
+            
             vertices = row['boundingPolygon']
             print(vertices)
             coordinates = [(float(v['x']) * image.width, float(v['y']) * image.height) for v in vertices]
 
-            # Dibuja un rectángulo negro en las coordenadas del bounding box
+            
             draw.polygon(coordinates, fill="black")
 
-        # Guarda la imagen con las cajas negras
+        
         image.save('dicom_processed/anonymized_'+str(image_local_name[1]))
 
         selected_rows_filtered = selected_rows[['text', 'type']]
@@ -350,7 +350,7 @@ def get_anonym_image(image_name):
         print(dict_result)
 
         
-        #test_img = read_img_to_base64("media/imagen_con_cajas_negras.png")
+        
         
         #return test_img, dict_result
     
@@ -399,7 +399,7 @@ def get_anonym_image(image_name):
     file_meta.MediaStorageSOPClassUID = ds.SOPClassUID
     file_meta.MediaStorageSOPInstanceUID = ds.SOPInstanceUID
     file_meta.ImplementationClassUID = pydicom.uid.PYDICOM_IMPLEMENTATION_UID
-    file_meta.TransferSyntaxUID = pydicom.uid.ExplicitVRLittleEndian  # Añadir TransferSyntaxUID
+    file_meta.TransferSyntaxUID = pydicom.uid.ExplicitVRLittleEndian  # Add TransferSyntaxUID
 
     
     ds.file_meta = file_meta
