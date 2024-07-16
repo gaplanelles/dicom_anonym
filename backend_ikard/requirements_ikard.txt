@@ -7,3 +7,4 @@ pandas
 pillow
 pydicom
 matplotlib
+cv2
