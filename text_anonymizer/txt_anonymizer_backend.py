@@ -2,13 +2,21 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_api import status
 from flask_cors import CORS
 import os
+import shutil
 import oci
 from oci.config import validate_config
+import json
+
+
+
 
 
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = True
+
+with open('config.json', 'r') as file:
+    config = json.load(file)
 
 
 def deidentify_text(texttoanalyse, compartment_id):
@@ -85,11 +93,11 @@ def translate_and_deidentify(text, source_language, target_language, compartment
     return cleansed_text
 
 
-def download_txt(object_storage_path):
+def download_txt(object_storage_path,namespace,bucket_name):
     CONFIG_PROFILE = "DEFAULT"
     config = oci.config.from_file('/home/ubuntu/.oci/config', CONFIG_PROFILE) 
-    namespace = "frkok02ushb5"
-    bucket_name = "Text-Anonymization-bucket"
+    namespace = namespace
+    bucket_name = bucket_name
     prefix = object_storage_path
     retrieve_files_loc ="/home/ubuntu/text_anonymizer/txt_downloaded"
     
@@ -111,7 +119,7 @@ def download_txt(object_storage_path):
 
     return True
 
-def read_all_txt_files(folder_path):
+def read_all_txt_files(folder_path, compartmentId):
 
 
     if not os.path.isdir(folder_path):
@@ -128,7 +136,7 @@ def read_all_txt_files(folder_path):
                 content = file.read()
                 
                 print(content)
-                compartment_id = "ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq"
+                compartment_id =compartmentId
                 
                 deidentified_text = translate_and_deidentify(content, "auto", "en", compartment_id)
                 print(deidentified_text)
@@ -159,16 +167,43 @@ def upload_to_bucket(namespace, bucket_name):
                 obj = object_storage.put_object(namespace, bucket_name, "TRG_TEXT/"+filename, f)
             print(f"Archivo subido al bucket: {filename}")
 
+def delete_folder_contents(folder):
+    """
+    Deletes all contents of the specified folder.
 
+    Args:
+        folder (str): Path to the folder whose contents will be deleted.
+    """
+    # Verify that the folder exists
+    if not os.path.exists(folder):
+        print(f"The folder {folder} does not exist.")
+        return
+
+    # Iterate through all files and directories in the folder
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        
+        try:
+            # Delete files and directories
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(f'Failed to delete {file_path}. Reason: {e}')
+ 
 @app.route('/txt_anonymizer', methods=['GET'])
 def txt_anonymizer():
     
-    download_txt("SRC_TEXT")
-    folder_path = 'txt_downloaded'
-    read_all_txt_files(folder_path)
-    upload_to_bucket("frkok02ushb5","Text-Anonymization-bucket")
-    return jsonify({'message':'todo ok'})
+    with open('config.json', 'r') as file:
+        config = json.load(file)
 
+    download_txt("SRC_TEXT",config["namespace"],config["bucketName"])
+    folder_path = 'txt_downloaded'
+    read_all_txt_files(folder_path, config["compartmentId"])
+    upload_to_bucket(config["namespace"],config["bucketName"])
+    delete_folder_contents("txt_downloaded")
+    return jsonify({'message':'todo ok'})
 
 
 
