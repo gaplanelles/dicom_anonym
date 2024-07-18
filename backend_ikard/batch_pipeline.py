@@ -15,9 +15,12 @@ import pandas as pd
 
 def download_dicom(object_storage_path):
     CONFIG_PROFILE = "DEFAULT"
-    config = oci.config.from_file('/home/ubuntu/.oci/config', CONFIG_PROFILE) 
-    namespace = "frkok02ushb5"
-    bucket_name = "Anonymization-bucket"
+    config = oci.config.from_file('/home/ubuntu/.oci/config', CONFIG_PROFILE)
+    with open('config.json', 'r') as file:
+        configfile = json.load(file)
+
+    namespace = configfile["namespace"]
+    bucket_name = configfile["bucketName"]
     prefix = object_storage_path
     retrieve_files_loc ="/home/ubuntu/backend/dicoms_downloaded"
     
@@ -132,14 +135,16 @@ def create_processor_job_callback(times_called, response):
 
 def get_anonym_image(image_name):
     
+    with open('config.json', 'r') as file:
+        configfile = json.load(file)
 
     CONFIG_PROFILE = "DEFAULT"
     config = oci.config.from_file('/home/ubuntu/.oci/config', CONFIG_PROFILE)
-    COMPARTMENT_ID = "ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq";
+    COMPARTMENT_ID = configfile["compartmentId"]
 
     object_location = oci.ai_document.models.ObjectLocation()
-    object_location.namespace_name = "frkok02ushb5"  # e.g. "axabc9efgh5x"
-    object_location.bucket_name = "Anonymization-bucket"  # e.g "docu-bucket"
+    object_location.namespace_name = configfile["namespace"]  # e.g. "axabc9efgh5x"
+    object_location.bucket_name = configfile["bucketName"]  # e.g "docu-bucket"
     #print(image_name)
     object_location.object_name = image_name  # e.g "invoice-white-clover.tif"
 
@@ -150,8 +155,9 @@ def get_anonym_image(image_name):
 
     # Setup the output location where processor job results will be created
     output_location = oci.ai_document.models.OutputLocation()
-    output_location.namespace_name = "frkok02ushb5"  # e.g. "axabc9efgh5x"
-    output_location.bucket_name = "Anonymization-bucket"
+    
+    output_location.namespace_name = configfile["namespace"]  # e.g. "axabc9efgh5x"
+    output_location.bucket_name = configfile["bucketName"]
     output_location.prefix = "PNG_ANONYMIZED"
 
     # Create a processor_job for invoice key_value_extraction feature. 
@@ -463,8 +469,10 @@ def delete_temp_objects_bucket(object_storage_path):
     
     CONFIG_PROFILE = "DEFAULT"
     config = oci.config.from_file('/home/ubuntu/.oci/config', CONFIG_PROFILE) 
-    namespace = "frkok02ushb5"
-    bucket_name = "Anonymization-bucket"
+    with open('config.json', 'r') as file:
+        configfile = json.load(file)
+    namespace = configfile["namespace"]
+    bucket_name = configfile["bucketName"]
     prefix = object_storage_path
     retrieve_files_loc ="/home/ubuntu/backend/dicoms_downloaded"
     
@@ -481,8 +489,15 @@ def delete_temp_objects_bucket(object_storage_path):
             
 
 def main():
-    object_storage_path =  "SRC_DICOM/"  
+    object_storage_path =  "SRC_DICOM/" 
+
+    with open('config.json', 'r') as file:
+        config = json.load(file)
+
+    #download_txt("SRC_TEXT",config["namespace"],config["bucketName"]) 
+
     download_dicom(object_storage_path)
+    
 
     dcm_files = []
     for root, _, files in os.walk("/home/ubuntu/backend/dicoms_downloaded/"):
@@ -494,7 +509,7 @@ def main():
     for root, _, files in os.walk("/home/ubuntu/backend/dicom_processed/"):
         for file in files:
 
-            upload_to_bucket("frkok02ushb5", "Anonymization-bucket","TRG_DICOM/"+str(file),os.path.join(root, file))
+            upload_to_bucket(config["namespace"], config["bucketName"],"TRG_DICOM/"+str(file),os.path.join(root, file))
             print(file+ " uploaded to object storage")
 
     delete_files_in_directory("/home/ubuntu/backend/dicom_processed")
