@@ -99,7 +99,8 @@ def download_txt(object_storage_path,namespace,bucket_name):
     namespace = namespace
     bucket_name = bucket_name
     prefix = object_storage_path
-    retrieve_files_loc ="/home/ubuntu/text_anonymizer/txt_downloaded"
+    retrieve_files_loc ="/home/ubuntu/dicom_anonym/text_anonymizer/txt_downloaded" 
+    # changed for a path in a VM
     
     validate_config(config)
 

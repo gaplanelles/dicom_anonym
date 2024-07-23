@@ -22,7 +22,7 @@ def download_dicom(object_storage_path):
     namespace = configfile["namespace"]
     bucket_name = configfile["bucketName"]
     prefix = object_storage_path
-    retrieve_files_loc ="/home/ubuntu/backend/dicoms_downloaded"
+    retrieve_files_loc ="/home/ubuntu/dicom_anonym/backend/dicoms_downloaded"
     
     validate_config(config)
 
@@ -474,7 +474,7 @@ def delete_temp_objects_bucket(object_storage_path):
     namespace = configfile["namespace"]
     bucket_name = configfile["bucketName"]
     prefix = object_storage_path
-    retrieve_files_loc ="/home/ubuntu/backend/dicoms_downloaded"
+    retrieve_files_loc ="/home/ubuntu/dicom_anonym/backend/dicoms_downloaded"
     
     validate_config(config)
 
@@ -500,20 +500,20 @@ def main():
     
 
     dcm_files = []
-    for root, _, files in os.walk("/home/ubuntu/backend/dicoms_downloaded/"):
+    for root, _, files in os.walk("/home/ubuntu/dicom_anonym/backend/dicoms_downloaded/"):
         for file in files:
             if file.endswith('.dcm'):
                 dicom_to_image(os.path.join(root, file))
 
     dcm_anonymized_files = []
-    for root, _, files in os.walk("/home/ubuntu/backend/dicom_processed/"):
+    for root, _, files in os.walk("/home/ubuntu/dicom_anonym/backend/dicom_processed/"):
         for file in files:
 
             upload_to_bucket(config["namespace"], config["bucketName"],"TRG_DICOM/"+str(file),os.path.join(root, file))
             print(file+ " uploaded to object storage")
 
-    delete_files_in_directory("/home/ubuntu/backend/dicom_processed")
-    delete_files_in_directory("/home/ubuntu/backend/dicoms_downloaded")
+    delete_files_in_directory("/home/ubuntu/dicom_anonym/backend/dicom_processed")
+    delete_files_in_directory("/home/ubuntu/dicom_anonym/backend/dicoms_downloaded")
     object_storage_path =  "PNG_ANONYMIZED/"  
     delete_temp_objects_bucket(object_storage_path)
     object_storage_path =  "PNG_TO_PROCESS/"  
