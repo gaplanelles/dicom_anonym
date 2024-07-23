@@ -1,9 +1,11 @@
+#conda create --name IKARD python=3.10
 flask_api
 flask_cors
+Werkzeug==2.3.0
 oci
-opencv-contrib-python
 pandas
 pillow
 pydicom
 matplotlib
-Werkzeug==2.3.0
+opencv-python
+cohere
