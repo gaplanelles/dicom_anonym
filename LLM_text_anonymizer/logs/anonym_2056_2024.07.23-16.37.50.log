@@ -1,0 +1,597 @@
+nohup: ignoring input
+ * Serving Flask app 'llm_text_anonymizer'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:2056
+ * Running on http://10.0.23.29:2056
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:38:55] "GET /llm_txt_anonymizer HTTP/1.1" 200 -
+79.146.139.206 - - [23/Jul/2024 16:38:55] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:39:47] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 181, in txt_anonymizer
+    download_txt("SRC_TEXT",config["namespace"],config["bucketName"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 92, in download_txt
+    with open(retrieve_files_loc+'/'+target_filename,'wb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ubuntu/llm_text_anonymizer/txt_downloaded/TEXT_1.txt'
+79.146.139.206 - - [23/Jul/2024 16:39:48] "GET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+79.146.139.206 - - [23/Jul/2024 16:39:48] "GET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+79.146.139.206 - - [23/Jul/2024 16:39:48] "GET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+79.146.139.206 - - [23/Jul/2024 16:39:48] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:40:11] "GET /llm_txt_anonymizer HTTP/1.1" 200 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:40:56] "GET /llm_txt_anonymizer HTTP/1.1" 200 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:45:14] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 146, in txt_anonymizer
+    read_all_txt_files(folder_path)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 81, in read_all_txt_files
+    compartment_id =compartmentId
+NameError: name 'compartmentId' is not defined
+79.146.139.206 - - [23/Jul/2024 16:45:14] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:45:14] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:45:14] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:45:14] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:46:25] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 146, in txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+TypeError: read_all_txt_files() takes 1 positional argument but 2 were given
+79.146.139.206 - - [23/Jul/2024 16:46:25] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:46:25] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:46:25] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:46:25] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:47:34] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 146, in txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 71, in read_all_txt_files
+    for filename in os.listdir(folder_path, compartmentId):
+TypeError: listdir() takes at most 1 argument (2 given)
+79.146.139.206 - - [23/Jul/2024 16:47:34] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:47:34] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:47:34] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:47:34] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:48:55] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 147, in txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 72, in read_all_txt_files
+    for filename in os.listdir(folder_path, compartmentId):
+TypeError: listdir() takes at most 1 argument (2 given)
+79.146.139.206 - - [23/Jul/2024 16:48:55] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:48:55] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:48:55] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:48:55] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:49:59] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 147, in txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 68, in read_all_txt_files
+    raise ValueError(f"Folder '{folder_path}' does not exist.")
+ValueError: Folder 'LLM_txt_downloaded' does not exist.
+79.146.139.206 - - [23/Jul/2024 16:49:59] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:49:59] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:49:59] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:49:59] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:50:44] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 147, in llm_txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 72, in read_all_txt_files
+    for filename in os.listdir(folder_path, compartmentId):
+TypeError: listdir() takes at most 1 argument (2 given)
+79.146.139.206 - - [23/Jul/2024 16:50:44] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:50:44] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:50:44] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:50:44] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:51:35] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 149, in llm_txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 72, in read_all_txt_files
+    for filename in os.listdir(folder_path, compartmentId):
+TypeError: listdir() takes at most 1 argument (2 given)
+79.146.139.206 - - [23/Jul/2024 16:51:35] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:51:35] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:51:36] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:51:36] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:52:37] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 149, in llm_txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"])
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 84, in read_all_txt_files
+    deidentified_text = llm_deidentifier(content) #-------------------------------------------
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 25, in llm_deidentifier
+    cleansed_text = co.chat(
+NameError: name 'co' is not defined
+79.146.139.206 - - [23/Jul/2024 16:52:37] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:52:37] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:52:37] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:52:37] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:55:00] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 153, in llm_txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"], co)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 91, in read_all_txt_files
+    new_file.write(deidentified_text)
+TypeError: write() argument must be str, not NonStreamedChatResponse
+79.146.139.206 - - [23/Jul/2024 16:55:05] "[35m[1mGET /llm_txt_anonymizer HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2213, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2193, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/anaconda3/envs/IKARD/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 153, in llm_txt_anonymizer
+    read_all_txt_files(folder_path, config["compartmentId"], co)
+  File "/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py", line 91, in read_all_txt_files
+    new_file.write(deidentified_text)
+TypeError: write() argument must be str, not NonStreamedChatResponse
+79.146.139.206 - - [23/Jul/2024 16:55:05] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:55:05] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:55:05] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+79.146.139.206 - - [23/Jul/2024 16:55:05] "[36mGET /llm_txt_anonymizer?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+text='Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.' generation_id='77c634f1-2db2-4c7b-86bc-a71a32564531' citations=None documents=None is_search_required=None search_queries=None search_results=None finish_reason='COMPLETE' tool_calls=None chat_history=[Message_User(message='Anonimizuj dane wrażliwe z tego tekstu. Musisz zastąpić imiona, wiek, daty, numery identyfikacyjne, ulice, telefony, e-maile, nazwy miast, kraje... literą X za każdy znak słowa do zanonimizowania: Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.\n', tool_calls=None, role='USER'), Message_Chatbot(message='Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.', tool_calls=None, role='CHATBOT')] prompt=None meta=ApiMeta(api_version=ApiMetaApiVersion(version='1', is_deprecated=None, is_experimental=None), billed_units=ApiMetaBilledUnits(input_tokens=175, output_tokens=125, search_units=None, classifications=None), tokens=ApiMetaTokens(input_tokens=240, output_tokens=125), warnings=None) response_id='1ba0f35d-674f-437d-af9b-96a64267e183'
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+text='Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.' generation_id='f16c1641-7a3a-4613-ba0c-efdaf5028485' citations=None documents=None is_search_required=None search_queries=None search_results=None finish_reason='COMPLETE' tool_calls=None chat_history=[Message_User(message='Anonimizuj dane wrażliwe z tego tekstu. Musisz zastąpić imiona, wiek, daty, numery identyfikacyjne, ulice, telefony, e-maile, nazwy miast, kraje... literą X za każdy znak słowa do zanonimizowania: Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.\n', tool_calls=None, role='USER'), Message_Chatbot(message='Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.', tool_calls=None, role='CHATBOT')] prompt=None meta=ApiMeta(api_version=ApiMetaApiVersion(version='1', is_deprecated=None, is_experimental=None), billed_units=ApiMetaBilledUnits(input_tokens=175, output_tokens=125, search_units=None, classifications=None), tokens=ApiMetaTokens(input_tokens=240, output_tokens=125), warnings=None) response_id='a5e55dcc-707e-443e-ae16-b18cefc152dc'
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 16:56:05] "GET /llm_txt_anonymizer HTTP/1.1" 200 -
+ * Detected change in '/home/ubuntu/LLM_text_anonymizer/llm_text_anonymizer.py', reloading
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.
+Archivo deidentificado guardado como: TEXT_1_deidentified.txt
+TEXT_1_deidentified.txt
+Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.
+Xxxx Xxxx, lat XX, mieszka w Xxxxxxxxxx przy ul. Xxxxxxxxxx XX/X. Pracuje jako nauczycielka w szkole podstawowej nr XX w Xxxxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +4X XXX XXX XXX. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.
+Archivo deidentificado guardado como: TEXT_1_deidentified_deidentified.txt
+TEXT_2.txt
+Kasia i Tomek byli najlepszymi przyjaciółmi od dzieciństwa. Pewnego dnia postanowili wybrać się na wycieczkę do Gdańska. Kasia mieszka w Warszawie przy ul. Malwowa 15/3, a Tomek mieszka w Krakowie na ul. Kwiatowa 8/2. Kasia zadzwoniła do Tomka pod numer +48 500 111 222, aby zaprosić go na wspólne zwiedzanie. W trakcie wycieczki odwiedzili Zamek w Gdańsku i spacerowali po Starym Mieście. Kasia uwielbia robić zdjęcia, więc przez cały czas dokumentowała ich przygody. Tomek i Kasia wrócili do swoich miast z mnóstwem wspomnień i obietnicą, że znów się spotkają.
+
+Xxxx i Xxxx byli najlepszymi przyjaciółmi od dzieciństwa. Pewnego dnia postanowili wybrać się na wycieczkę do Xxxxxa. Xxxx mieszka w Xxxxxxxxxxx przy ul. Xxxxxxxxx 15/3, a Xxxx mieszka w Xxxxxxxxxxx na ul. Xxxxxxxxx 8/2. Xxxx zadzwoniła do Xxxxxa pod numer +48 XXX XX XX XX, aby zaprosić go na wspólne zwiedzanie. W trakcie wycieczki odwiedzili Zamek w Xxxxxxxx i spacerowali po Starym Mieście. Xxxx uwielbia robić zdjęcia, więc przez cały czas dokumentowała ich przygody. Xxxx i Xxxx wrócili do swoich miast z mnóstwem wspomnień i obietnicą, że znów się spotkają.
+Archivo deidentificado guardado como: TEXT_2_deidentified.txt
+TEXT_3.txt
+Raport Medyczny
+
+Imię i Nazwisko: Andrzej Kowalski
+Data urodzenia: 15 lutego 1985
+Adres: ul. Polna 22/3, 00-001 Warszawa
+Numer telefonu: +48 600 123 456
+Adres e-mail: andrzej.kowalski@example.com
+
+Pacjent zgłosił się na wizytę kontrolną w dniu 12 lipca 2024 roku. Po przeprowadzeniu badań diagnostycznych stwierdzono, że Andrzej ma wysokie ciśnienie krwi i zaleca się dalsze leczenie oraz zmiany w diecie. W badaniu wykryto również objawy astmy oskrzelowej, które wymagają dalszej terapii. Kolejna wizyta została zaplanowana na 12 sierpnia 2024 roku. 
+
+Doktor: Dr. Janusz Nowak
+Specjalizacja: Kardiologia
+
+Oto zanonimizowany raport medyczny:
+
+Imię i Nazwisko: Xxxxxxx Xxxxxxxx
+Data urodzenia: XX lutego XXXX
+Adres: ul. Xxxxxx XX/X, XX-XXX Xxxxxxx
+Numer telefonu: +XX XX XXX XX XX
+Adres e-mail: xxxxxxx.xxxxxxxx@xxxxxx.xx
+
+Pacjent zgłosił się na wizytę kontrolną w dniu XX lipca XXXX roku. Po przeprowadzeniu badań diagnostycznych stwierdzono, że pacjent ma wysokie ciśnienie krwi i zaleca się dalsze leczenie oraz zmiany w diecie. W badaniu wykryto również objawy astmy oskrzelowej, które wymagają dalszej terapii. Kolejna wizyta została zaplanowana na XX sierpnia XXXX roku. 
+
+Doktor: Dr. Xxxxxx Xxxxx
+Specjalizacja: Kardiologia
+
+Wszystkie dane wrażliwe zostały zastąpione literą "X" zgodnie z Twoim życzeniem. Jeśli chcesz, mogę zmodyfikować ten tekst lub pomóc w inny sposób.
+Archivo deidentificado guardado como: TEXT_3_deidentified.txt
+placeholder.txt
+This is a placeholder document
+This is a placeholder document.
+Archivo deidentificado guardado como: placeholder_deidentified.txt
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 651-148-738
+79.146.139.206 - - [23/Jul/2024 17:06:30] "GET /llm_txt_anonymizer HTTP/1.1" 200 -
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.
+Archivo deidentificado guardado como: TEXT_1_deidentified.txt
+TEXT_2.txt
+Kasia i Tomek byli najlepszymi przyjaciółmi od dzieciństwa. Pewnego dnia postanowili wybrać się na wycieczkę do Gdańska. Kasia mieszka w Warszawie przy ul. Malwowa 15/3, a Tomek mieszka w Krakowie na ul. Kwiatowa 8/2. Kasia zadzwoniła do Tomka pod numer +48 500 111 222, aby zaprosić go na wspólne zwiedzanie. W trakcie wycieczki odwiedzili Zamek w Gdańsku i spacerowali po Starym Mieście. Kasia uwielbia robić zdjęcia, więc przez cały czas dokumentowała ich przygody. Tomek i Kasia wrócili do swoich miast z mnóstwem wspomnień i obietnicą, że znów się spotkają.
+
+Xxxxx x Xxxxxx byli najlepszymi przyjaciółmi od dzieciństwa. Pewnego dnia postanowili wybrać się na wycieczkę do Xxxxxxx. Xxxxx mieszka w Xxxxxxxxxxx przy ul. Xxxxxxxx 15/3, a Xxxxxx mieszka w Xxxxxxxxxxx na ul. Xxxxxxxxx 8/2. Xxxxxa zadzwoniła do Xxxxxa pod numer +48 XXX XX XX XX, aby zaprosić go na wspólne zwiedzanie. W trakcie wycieczki odwiedzili Zamek w Xxxxxxxx i spacerowali po Starym Mieście. Xxxxxa uwielbia robić zdjęcia, więc przez cały czas dokumentowała ich przygody. Xxxxx i Xxxxxa wrócili do swoich miast z mnóstwem wspomnień i obietnicą, że znów się spotkają.
+Archivo deidentificado guardado como: TEXT_2_deidentified.txt
+TEXT_3.txt
+Raport Medyczny
+
+Imię i Nazwisko: Andrzej Kowalski
+Data urodzenia: 15 lutego 1985
+Adres: ul. Polna 22/3, 00-001 Warszawa
+Numer telefonu: +48 600 123 456
+Adres e-mail: andrzej.kowalski@example.com
+
+Pacjent zgłosił się na wizytę kontrolną w dniu 12 lipca 2024 roku. Po przeprowadzeniu badań diagnostycznych stwierdzono, że Andrzej ma wysokie ciśnienie krwi i zaleca się dalsze leczenie oraz zmiany w diecie. W badaniu wykryto również objawy astmy oskrzelowej, które wymagają dalszej terapii. Kolejna wizyta została zaplanowana na 12 sierpnia 2024 roku. 
+
+Doktor: Dr. Janusz Nowak
+Specjalizacja: Kardiologia
+
+Oto zanonimizowany raport medyczny:
+
+Imię i Nazwisko: Xxxxxx Xxxxxxxx
+Data urodzenia: XX lutego XXXX
+Adres: ul. Xxxxxx XX/X, XX-XXX Xxxxxxx
+Numer telefonu: +XX XX XXX XX XX
+Adres e-mail: x.x@xxxxxx.xx
+
+Pacjent zgłosił się na wizytę kontrolną w dniu XX lipca XXXX roku. Po przeprowadzeniu badań diagnostycznych stwierdzono, że pacjent ma wysokie ciśnienie krwi i zaleca się dalsze leczenie oraz zmiany w diecie. W badaniu wykryto również objawy astmy oskrzelowej, które wymagają dalszej terapii. Kolejna wizyta została zaplanowana na XX sierpnia XXXX roku. 
+
+Doktor: Dr. Xxxxxx Xxxxx
+Specjalizacja: Kardiologia
+
+Czy wszystko jest w porządku z tym tekstem? Jeśli chcesz, mogę wprowadzić jakieś dodatkowe zmiany.
+Archivo deidentificado guardado como: TEXT_3_deidentified.txt
+Archivo subido al bucket: TEXT_1_deidentified.txt
+Archivo subido al bucket: TEXT_3_deidentified.txt
+Archivo subido al bucket: TEXT_2_deidentified.txt
+downloaded "TEXT_1.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_2.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+downloaded "TEXT_3.txt" in "/home/ubuntu/LLM_text_anonymizer/txt_downloaded" from bucket "Text-Anonymization-bucket"
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+txt_downloaded
+ocid1.compartment.oc1..aaaaaaaa7rxjpnxxcqparwvybqb3ocpiadljmtfnp5rq35yqib6vvl64pxlq
+TEXT_1.txt
+Anna Nowak, lat 28, mieszka w Krakowie przy ul. Wrzosowa 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Krakowie. Jej adres e-mail to anna.nowak@example.com, a numer telefonu to +48 500 234 567. Anna ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Anna wybrała się na wakacje do Gdańska.
+
+Xxxx Xxxx, lat 28, mieszka w Xxxxxxxx przy ul. Xxxxxxxx 5/2. Pracuje jako nauczycielka w szkole podstawowej nr 10 w Xxxxxxxx. Jej adres e-mail to xxxxx.xxxxxx@xxxxxx.xx, a numer telefonu to +48 500 234 567. Xxxx ma psa o imieniu Burek i lubi jeździć na rowerze w wolnym czasie. W zeszłym miesiącu Xxxx wybrała się na wakacje do Xxxxxxxx.
+Archivo deidentificado guardado como: TEXT_1_deidentified.txt
+TEXT_2.txt
+Kasia i Tomek byli najlepszymi przyjaciółmi od dzieciństwa. Pewnego dnia postanowili wybrać się na wycieczkę do Gdańska. Kasia mieszka w Warszawie przy ul. Malwowa 15/3, a Tomek mieszka w Krakowie na ul. Kwiatowa 8/2. Kasia zadzwoniła do Tomka pod numer +48 500 111 222, aby zaprosić go na wspólne zwiedzanie. W trakcie wycieczki odwiedzili Zamek w Gdańsku i spacerowali po Starym Mieście. Kasia uwielbia robić zdjęcia, więc przez cały czas dokumentowała ich przygody. Tomek i Kasia wrócili do swoich miast z mnóstwem wspomnień i obietnicą, że znów się spotkają.
+
+Xxxx i Xxxx byli najlepszymi przyjaciółmi od dzieciństwa. Pewnego dnia postanowili wybrać się na wycieczkę do Xxxxxa. Xxxx mieszka w Xxxxxxxxxxx przy ul. Xxxxxxxxx 15/3, a Xxxx mieszka w Xxxxxxxxxxx na ul. Xxxxxxxxx 8/2. Xxxx zadzwoniła do Xxxxxa pod numer +48 XXX XX XX XX, aby zaprosić go na wspólne zwiedzanie. W trakcie wycieczki odwiedzili Zamek w Xxxxxxxx i spacerowali po Starym Mieście. Xxxx uwielbia robić zdjęcia, więc przez cały czas dokumentowała ich przygody. Xxxx i Xxxx wrócili do swoich miast z mnóstwem wspomnień i obietnicą, że znów się spotkają.
+Archivo deidentificado guardado como: TEXT_2_deidentified.txt
+TEXT_3.txt
+Raport Medyczny
+
+Imię i Nazwisko: Andrzej Kowalski
+Data urodzenia: 15 lutego 1985
+Adres: ul. Polna 22/3, 00-001 Warszawa
+Numer telefonu: +48 600 123 456
+Adres e-mail: andrzej.kowalski@example.com
+
+Pacjent zgłosił się na wizytę kontrolną w dniu 12 lipca 2024 roku. Po przeprowadzeniu badań diagnostycznych stwierdzono, że Andrzej ma wysokie ciśnienie krwi i zaleca się dalsze leczenie oraz zmiany w diecie. W badaniu wykryto również objawy astmy oskrzelowej, które wymagają dalszej terapii. Kolejna wizyta została zaplanowana na 12 sierpnia 2024 roku. 
+
+Doktor: Dr. Janusz Nowak
+Specjalizacja: Kardiologia
+
+Oto zanonimizowany raport medyczny:
+
+Imię i Nazwisko: Xxxxxx Xxxxxxxx
+Data urodzenia: XX lutego XXXX
+Adres: ul. Xxxxx X, XX-XXX Xxxxxxx
+Numer telefonu: +XX XX XXX XX XX
+Adres e-mail: x.x@xxxxxx.xx
+
+Pacjent zgłosił się na wizytę kontrolną w dniu XX lipca XXXX roku. Po przeprowadzeniu badań diagnostycznych stwierdzono, że pacjent ma wysokie ciśnienie krwi i zaleca się dalsze leczenie oraz zmiany w diecie. W badaniu wykryto również objawy astmy oskrzelowej, które wymagają dalszej terapii. Kolejna wizyta została zaplanowana na XX sierpnia XXXX roku. 
+
+Doktor: Dr. Xxxxxx Xxxxx
+Specjalizacja: Kardiologia
+
+Czy chcesz, abym coś jeszcze zmienił w tym dokumencie? Możemy dodać więcej szczegółów lub zmienić format daty, jeśli wolisz.
+Archivo deidentificado guardado como: TEXT_3_deidentified.txt
+79.146.139.206 - - [23/Jul/2024 17:08:28] "GET /llm_txt_anonymizer HTTP/1.1" 200 -
