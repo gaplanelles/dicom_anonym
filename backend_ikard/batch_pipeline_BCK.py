@@ -11,9 +11,6 @@ import matplotlib.pyplot as plt
 import json
 import uuid
 import pandas as pd
-import img2pdf
-from PIL import Image
-import os
 
 
 def download_dicom(object_storage_path):
@@ -45,7 +42,7 @@ def download_dicom(object_storage_path):
 
     return True
 
-def dicom_to_image_pdf(dicom_path):
+def dicom_to_image(dicom_path):
     #this dicom to image should also take the metadata information
     dicom_data = pydicom.dcmread(dicom_path)
     #print(dicom_path)
@@ -65,44 +62,14 @@ def dicom_to_image_pdf(dicom_path):
     enhancer = ImageEnhance.Brightness(img)
     img.save(output_image_path)
 
-    # storing image path
-    img_path = output_image_path
-    
-    # storing pdf path
-    pdf_path = os.path.join("dicom_processed", f"{base_name}.pdf")
-    print("pdf_path")
-    print(pdf_path)
-    
-    # opening image
-    image = Image.open(img_path)
-    
-    # converting into chunks using img2pdf
-    pdf_bytes = img2pdf.convert(image.filename)
-    
-    # opening or creating pdf file
-    file = open(pdf_path, "wb")
-    
-    # writing pdf files with chunks
-    file.write(pdf_bytes)
-    
-    # closing image file
-    image.close()
-    
-    # closing pdf file
-    file.close()
-    
-    # output
-    print("Successfully made pdf file"+str(pdf_path))
-
     # Save the metadata as JSON
     with open(output_json_path, 'w') as json_file:
         json.dump(dicom_data_json, json_file, indent=4)
     
     # Upload the image to the specified bucket
-    object_name = f"PNG_TO_PROCESS/{base_name}.pdf"
-    upload_to_bucket("frkok02ushb5", "Anonymization-bucket", object_name, pdf_path)
-    #print(f"Image saved at: {output_image_path}")
-    print(f"Image saved at: {img_path}")
+    object_name = f"PNG_TO_PROCESS/{base_name}.png"
+    upload_to_bucket("frkok02ushb5", "Anonymization-bucket", object_name, output_image_path)
+    print(f"Image saved at: {output_image_path}")
     print(f"Metadata saved at: {output_json_path}")
 
     # Call the anonymization function (assumed to be defined elsewhere)
@@ -110,7 +77,39 @@ def dicom_to_image_pdf(dicom_path):
 
     return True
 
+def dicom_to_image_old(dicom_path):
+    #this dicom to image should also take the metadata information
+    dicom_data = pydicom.dcmread(dicom_path)
+    #print(dicom_path)
 
+    #save image
+
+    pixel_array = dicom_data.pixel_array
+    fig, ax = plt.subplots()
+    ax.imshow(pixel_array, cmap=plt.cm.gray)
+    ax.set_title("")
+    ax.axis("off")
+    output_name = dicom_path.split("/")[-1]
+    png_name = output_name.split(".")
+    output_path = f"dicom_processed/{png_name[0]}.png"
+    plt.savefig(output_path, bbox_inches='tight', pad_inches=0)
+    plt.close(fig)
+
+    dicom_data_json = dicom_data.to_json_dict()
+    json_name = output_name.split('.')
+
+    output_path = os.path.join( f"dicom_processed/{json_name[0]}.json")
+    with open(output_path, 'w') as json_file:
+        json.dump(dicom_data_json, json_file, indent=4)
+    
+    object_name = f"PNG_TO_PROCESS/{png_name[0]}.png"
+    path_to_file =  f"dicom_processed/{png_name[0]}.png"
+    upload_to_bucket("frkok02ushb5","Anonymization-bucket",object_name, path_to_file )
+    print(f"file saved in: {output_path}")
+
+    get_anonym_image(object_name)
+
+    return True
 
 
 def image_to_dicom(nombre):
@@ -135,10 +134,9 @@ def create_processor_job_callback(times_called, response):
 
 
 def get_anonym_image(image_name):
-    print(f"object to anonymize: {image_name}")
     
     with open('config.json', 'r') as file:
-            configfile = json.load(file)
+        configfile = json.load(file)
 
     CONFIG_PROFILE = "DEFAULT"
     config = oci.config.from_file('/home/ubuntu/.oci/config', CONFIG_PROFILE)
@@ -147,7 +145,7 @@ def get_anonym_image(image_name):
     object_location = oci.ai_document.models.ObjectLocation()
     object_location.namespace_name = configfile["namespace"]  # e.g. "axabc9efgh5x"
     object_location.bucket_name = configfile["bucketName"]  # e.g "docu-bucket"
-    print(f"image name: {image_name}")
+    #print(image_name)
     object_location.object_name = image_name  # e.g "invoice-white-clover.tif"
 
     aiservicedocument_client = oci.ai_document.AIServiceDocumentClientCompositeOperations(oci.ai_document.AIServiceDocumentClient(config=config))
@@ -157,7 +155,7 @@ def get_anonym_image(image_name):
 
     # Setup the output location where processor job results will be created
     output_location = oci.ai_document.models.OutputLocation()
-
+    
     output_location.namespace_name = configfile["namespace"]  # e.g. "axabc9efgh5x"
     output_location.bucket_name = configfile["bucketName"]
     output_location.prefix = "PNG_ANONYMIZED"
@@ -169,12 +167,8 @@ def get_anonym_image(image_name):
                                                         compartment_id=COMPARTMENT_ID,
                                                         input_location=oci.ai_document.models.ObjectStorageLocations(object_locations=[object_location]),
                                                         output_location=output_location,
-                                                        processor_config=oci.ai_document.models.GeneralProcessorConfig(
-                                                            processor_type="GENERAL",
-                                                            document_type="OTHERS",
-                                                            language = "en",
-                                                            features = [oci.ai_document.models.DocumentTextExtractionFeature(generate_searchable_pdf = False)
-                    ]))
+                                                        processor_config=oci.ai_document.models.GeneralProcessorConfig(features=[key_value_extraction_feature],
+                                                                                                                    document_type="INVOICE"))
 
 
     #print("Calling create_processor with create_processor_job_details_key_value_extraction:", create_processor_job_details_key_value_extraction)
@@ -196,9 +190,15 @@ def get_anonym_image(image_name):
                                                             object_location.namespace_name,
                                                             object_location.bucket_name,
                                                             object_location.object_name))
+    #print(str(get_object_response.data.content.decode()))
 
+    # Suponiendo que get_object_response.data es una cadena JSON
     json_data_str = get_object_response.data.content.decode()
+
+    # Convertir la cadena JSON a un diccionario
     json_data = json.loads(json_data_str)
+    
+    #print(json_data["pages"])
     if json_data["pages"][0]["dimensions"] is None:
         image_local_name = image_name.split("/")
         #print("dicom_processed/"+str(image_local_name[1]))
@@ -209,8 +209,8 @@ def get_anonym_image(image_name):
         os.rename("dicom_processed/"+image_local_name[1], new_file_path)
 
     if json_data["pages"][0]["dimensions"] != None:
-        
-
+       
+    
         #print(json_data["pages"])
         # Crear listas para cada columna
         text_list = []
@@ -230,181 +230,187 @@ def get_anonym_image(image_name):
             "boundingPolygon": boundingPolygon_list
         })
 
+        # Mostrar el DataFrame
+        #print(df)
 
-    text_concatenated = ' '.join(df['text'])
+        text_concatenated = ' '.join(df['text'])
 
         #print(text_concatenated)
 
-    ai_client = oci.ai_language.AIServiceLanguageClient(oci.config.from_file())
+        ai_client = oci.ai_language.AIServiceLanguageClient(oci.config.from_file())
 
-    key1 = "doc1"
-    key2 = "doc2"
-    text1 = "Hello Support Team, I am reaching out to seek help with my credit card number 1234 5678 9873 2345 expiring on 11/23. There was a suspicious transaction on 12-Aug-2022 which I reported by calling from my mobile number +1 (423) 111-9999 also I emailed from my email id sarah.jones1234@hotmail.com. Would you please let me know the refund status? Regards, Sarah"
-    text2 = "Using high-performance GPU systems in the Oracle Cloud, OCI will be the cloud engine for the artificial intelligence models that drive the MIT Driverless cars competing in the Indy Autonomous Challenge."
+        key1 = "doc1"
+        key2 = "doc2"
+        text1 = "Hello Support Team, I am reaching out to seek help with my credit card number 1234 5678 9873 2345 expiring on 11/23. There was a suspicious transaction on 12-Aug-2022 which I reported by calling from my mobile number +1 (423) 111-9999 also I emailed from my email id sarah.jones1234@hotmail.com. Would you please let me know the refund status? Regards, Sarah"
+        text2 = "Using high-performance GPU systems in the Oracle Cloud, OCI will be the cloud engine for the artificial intelligence models that drive the MIT Driverless cars competing in the Indy Autonomous Challenge."
 
-    compartment_id = "<COMPARTMENT_ID>" #TODO Specify your compartmentId here
+        compartment_id = "<COMPARTMENT_ID>" #TODO Specify your compartmentId here
 
-    #language Detection of Input Documents
-    doc1 = oci.ai_language.models.DominantLanguageDocument(key=key1, text=text_concatenated)
-    #doc1 = oci.ai_language.models.DominantLanguageDocument(key=key1, text=text1)
-    #doc2 = oci.ai_language.models.DominantLanguageDocument(key=key2, text=text2)
-    #documents = [doc1, doc2]
-    documents = [doc1]
-    batch_detect_dominant_language_details = oci.ai_language.models.BatchDetectDominantLanguageDetails(documents=documents, compartment_id=COMPARTMENT_ID)
-    output = ai_client.batch_detect_dominant_language(batch_detect_dominant_language_details)
-    #print(output.data)
+        #language Detection of Input Documents
+        doc1 = oci.ai_language.models.DominantLanguageDocument(key=key1, text=text_concatenated)
+        #doc1 = oci.ai_language.models.DominantLanguageDocument(key=key1, text=text1)
+        #doc2 = oci.ai_language.models.DominantLanguageDocument(key=key2, text=text2)
+        #documents = [doc1, doc2]
+        documents = [doc1]
+        batch_detect_dominant_language_details = oci.ai_language.models.BatchDetectDominantLanguageDetails(documents=documents, compartment_id=COMPARTMENT_ID)
+        output = ai_client.batch_detect_dominant_language(batch_detect_dominant_language_details)
+        #print(output.data)
 
-    doc1 = oci.ai_language.models.TextDocument(key=key1, text=text_concatenated, language_code="en")
-    #doc1 = oci.ai_language.models.TextDocument(key=key1, text=text1, language_code="en")
-    #doc2 = oci.ai_language.models.TextDocument(key=key2, text=text2, language_code="en")
-    #documents = [doc1, doc2]
+        doc1 = oci.ai_language.models.TextDocument(key=key1, text=text_concatenated, language_code="en")
+        #doc1 = oci.ai_language.models.TextDocument(key=key1, text=text1, language_code="en")
+        #doc2 = oci.ai_language.models.TextDocument(key=key2, text=text2, language_code="en")
+        #documents = [doc1, doc2]
 
-    documents = [doc1]
+        documents = [doc1]
 
-    #Text Classification of Input Documents
-    batch_detect_language_text_classification_details = oci.ai_language.models.BatchDetectLanguageTextClassificationDetails(documents=documents, compartment_id=COMPARTMENT_ID)
-    output = ai_client.batch_detect_language_text_classification(batch_detect_language_text_classification_details)
-    #print(output.data)
+        #Text Classification of Input Documents
+        batch_detect_language_text_classification_details = oci.ai_language.models.BatchDetectLanguageTextClassificationDetails(documents=documents, compartment_id=COMPARTMENT_ID)
+        output = ai_client.batch_detect_language_text_classification(batch_detect_language_text_classification_details)
+        #print(output.data)
 
-    #Named Entity Recognition of Input Documents
-    batch_detect_language_entities_details = oci.ai_language.models.BatchDetectLanguageEntitiesDetails(documents=documents, compartment_id=COMPARTMENT_ID)
-    output = ai_client.batch_detect_language_entities(batch_detect_language_entities_details)
-    #print(output.data)
+        #Named Entity Recognition of Input Documents
+        batch_detect_language_entities_details = oci.ai_language.models.BatchDetectLanguageEntitiesDetails(documents=documents, compartment_id=COMPARTMENT_ID)
+        output = ai_client.batch_detect_language_entities(batch_detect_language_entities_details)
+        #print(output.data)
 
-    json_data_str = str(output.data)
+        json_data_str = str(output.data)
 
-    new_json_data = json.loads(json_data_str)
+        new_json_data = json.loads(json_data_str)
 
-    entities_json = new_json_data["documents"]
+        entities_json = new_json_data["documents"]
 
-    entities_json
+        entities_json
 
-    for entity in entities_json[0]['entities']:
-        text_to_match = entity['text']
-        #print(text_to_match)
-        type_value = entity['type']
-        #print(type_value)
+        for entity in entities_json[0]['entities']:
+            text_to_match = entity['text']
+            #print(text_to_match)
+            type_value = entity['type']
+            #print(type_value)
 
-        #print(df["text"][0])
-
-        
-        #matching_rows = df[df['text'] == text_to_match].index
-        matching_rows = df[df['text'].str.contains(text_to_match)].index
-        #print(matching_rows)
-
-        
-        df.loc[matching_rows, 'type'] = type_value
-
-
-    #print(df)
-
-    column_type = []
-    for entity in entities_json[0]['entities']:
-        text_to_match = entity['text']
-        #print(text_to_match)
-        type_value = entity['type']
-        #print(type_value)
-
-        
-        matching_rows = df[df['text'].apply(lambda x: x in text_to_match)].index
-        #matching_rows = df[str(df['text']) in text_to_match].index
-
-        #matching_rows = df[df['text'] in (text_to_match)].index
-        #print(matching_rows)
-
-        
-        df.loc[matching_rows, 'type'] = type_value
-
-    # Imprimir el DataFrame actualizado
-    #print(df)
-
-    df.loc[df['text'] == 'LAG', 'type'] = None
-
-
-    selected_types = ['DATETIME', 'PERSON', 'ORGANIZATION', 'QUANTITY']
-    selected_rows = df[df['type'].isin(selected_types)]
-
-    pdf_local_name = image_name.split("/")
-    image_local_name = pdf_local_name[1].split(".")
-    image_path = "dicom_processed/"+str(image_local_name[0]+".png")
-    #print(image_path)
-    image = Image.open(image_path)
+            #print(df["text"][0])
 
             
-    draw = ImageDraw.Draw(image)
+            #matching_rows = df[df['text'] == text_to_match].index
+            matching_rows = df[df['text'].str.contains(text_to_match)].index
+            #print(matching_rows)
 
-    print(selected_rows)
-
-    for index, row in selected_rows.iterrows():
-        
-        vertices = row['boundingPolygon']
-        print(vertices)
-        coordinates = [(float(v['x']) * image.width, float(v['y']) * image.height) for v in vertices]
+            
+            df.loc[matching_rows, 'type'] = type_value
 
         
-        draw.polygon(coordinates, fill="black")
+        #print(df)
 
+        column_type = []
+        for entity in entities_json[0]['entities']:
+            text_to_match = entity['text']
+            #print(text_to_match)
+            type_value = entity['type']
+            #print(type_value)
 
-    image.save('dicom_processed/anonymized_'+str(image_local_name[0]+".png"))
+            
+            matching_rows = df[df['text'].apply(lambda x: x in text_to_match)].index
+            #matching_rows = df[str(df['text']) in text_to_match].index
+        
+            #matching_rows = df[df['text'] in (text_to_match)].index
+            #print(matching_rows)
 
-    selected_rows_filtered = selected_rows[['text', 'type']]
+            
+            df.loc[matching_rows, 'type'] = type_value
 
-    dict_result = selected_rows_filtered.to_dict(orient='records')
+        # Imprimir el DataFrame actualizado
+        #print(df)
 
-    print(dict_result)
-    
+        df.loc[df['text'] == 'LAG', 'type'] = None
+
+        
+        selected_types = ['DATETIME', 'PERSON', 'ORGANIZATION', 'QUANTITY']
+        selected_rows = df[df['type'].isin(selected_types)]
+
+        
+        image_local_name = image_name.split("/")
+        image_path = "dicom_processed/"+str(image_local_name[1])
+        #print(image_path)
+        image = Image.open(image_path)
+
+        
+        draw = ImageDraw.Draw(image)
+
+        print(selected_rows)
+
+        for index, row in selected_rows.iterrows():
+            
+            vertices = row['boundingPolygon']
+            print(vertices)
+            coordinates = [(float(v['x']) * image.width, float(v['y']) * image.height) for v in vertices]
+
+            
+            draw.polygon(coordinates, fill="black")
+
+        
+        image.save('dicom_processed/anonymized_'+str(image_local_name[1]))
+
+        selected_rows_filtered = selected_rows[['text', 'type']]
+
+        dict_result = selected_rows_filtered.to_dict(orient='records')
+
+        print(dict_result)
+
+        
         
         
         #return test_img, dict_result
     
     dicom_local_name = image_name.split("/")
+
     dicom_local_name = dicom_local_name[1].split(".")
     dicom_file = "dicoms_dowloaded/"+str(dicom_local_name[0])+".dcm"
     final_image_path = image_name.split("/") 
-    final_image_local_path = final_image_path[1].split(".")
-    png_file = "dicom_processed/anonymized_"+str(final_image_local_path[0])+".png"
+    png_file = "dicom_processed/anonymized_"+str(final_image_path[1])
+
     print(png_file, dicom_file)
     
-
-
-    img = Image.open(png_file)
-    img_array = np.array(img)
-
-    file_meta = pydicom.Dataset()
-    ds = FileDataset(dicom_file, {}, file_meta=file_meta, preamble=b"\0" * 128)
+    image = Image.open(png_file)
+    image = image.convert('L')  
+    np_image = np.array(image)
 
     
-
+    ds = Dataset()
 
     
     ds.PatientName = "Anonymized"
     ds.PatientID = "Anonymized"
-    ds.Modality = "OT"  # Other
     ds.StudyInstanceUID = pydicom.uid.generate_uid()
     ds.SeriesInstanceUID = pydicom.uid.generate_uid()
     ds.SOPInstanceUID = pydicom.uid.generate_uid()
-    ds.SOPClassUID = pydicom.uid.generate_uid()
-
-    # Set the transfer syntax
-    ds.file_meta.TransferSyntaxUID = pydicom.uid.ExplicitVRLittleEndian 
+    ds.SOPClassUID = pydicom.uid.SecondaryCaptureImageStorage
 
     
     dt = datetime.datetime.now()
     ds.ContentDate = dt.strftime('%Y%m%d')
-    ds.ContentTime = dt.strftime('%H%M%S.%f')
+    ds.ContentTime = dt.strftime('%H%M%S')
 
     
-    ds.Rows, ds.Columns = img_array.shape
     ds.SamplesPerPixel = 1
     ds.PhotometricInterpretation = "MONOCHROME2"
-    ds.PixelRepresentation = 0  
-    ds.BitsAllocated = 16
-    ds.BitsStored = 16
-    ds.HighBit = 15
-    ds.PixelData = img_array.tobytes()
+    ds.Rows = np_image.shape[0]
+    ds.Columns = np_image.shape[1]
+    ds.BitsAllocated = 8
+    ds.BitsStored = 8
+    ds.HighBit = 7
+    ds.PixelRepresentation = 0
+    ds.PixelData = np_image.tobytes()
 
 
+    file_meta = pydicom.dataset.FileMetaDataset()
+    file_meta.MediaStorageSOPClassUID = ds.SOPClassUID
+    file_meta.MediaStorageSOPInstanceUID = ds.SOPInstanceUID
+    file_meta.ImplementationClassUID = pydicom.uid.PYDICOM_IMPLEMENTATION_UID
+    file_meta.TransferSyntaxUID = pydicom.uid.ExplicitVRLittleEndian  # Add TransferSyntaxUID
 
+    
+    ds.file_meta = file_meta
+    ds.is_little_endian = True
+    ds.is_implicit_VR = False
 
     anonymized_dicom = dicom_file.split("/")
     ds.save_as("dicom_processed/anonymized_"+str(anonymized_dicom[1]))
@@ -497,7 +503,7 @@ def main():
     for root, _, files in os.walk("/home/ubuntu/backend/dicoms_downloaded/"):
         for file in files:
             if file.endswith('.dcm'):
-                dicom_to_image_pdf(os.path.join(root, file))
+                dicom_to_image(os.path.join(root, file))
 
     dcm_anonymized_files = []
     for root, _, files in os.walk("/home/ubuntu/backend/dicom_processed/"):

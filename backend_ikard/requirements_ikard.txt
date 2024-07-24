@@ -9,3 +9,4 @@ pydicom
 matplotlib
 opencv-python
 cohere
+img2pdf
